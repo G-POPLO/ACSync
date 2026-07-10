@@ -1,4 +1,4 @@
 <Solution>
+  <Project Path="ACSync.CIL/ACSync.CLI.csproj" />
   <Project Path="ACSync.Core\ACSync.Core.csproj" />
-  <Project Path="ACSync.CIL\ACSync.CIL.csproj" />
 </Solution>
