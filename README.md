@@ -1,6 +1,6 @@
 # ACSync
 
-[English](README.md)[简体中文](README-CN.md)
+[English](README.md)  [简体中文](README-CN.md)
 
 An extremely simple incremental update/patch system for any binary files.
 
@@ -18,7 +18,7 @@ An extremely simple incremental update/patch system for any binary files.
 
 | Package | Description | Install |
 |---|---|---|
-| **ACSync** | CLI tool | `dotnet tool install --global ACSync` |
+| **ACSync.CLI** | CLI tool | `dotnet tool install --global ACSync` |
 | **ACSync.Core** | Library | `dotnet add package ACSync.Core` |
 
 ## Commands
