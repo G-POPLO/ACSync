@@ -33,4 +33,12 @@
     <None Include="README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="7-Zip.CommandLine" Version="25.1.0" />
+    </ItemGroup>
+
+    <!--<Target Name="Copy7Zip" AfterTargets="Build">
+        <Copy SourceFiles="$(NuGetPackageRoot)7-zip.commandline/25.1.0/tools/7za.exe" DestinationFolder="$(OutputPath)" />
+    </Target>-->
+
 </Project>

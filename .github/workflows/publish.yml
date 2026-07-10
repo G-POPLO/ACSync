@@ -27,6 +27,15 @@ jobs:
              --source https://api.nuget.org/v3/index.json
              --skip-duplicate
 
+      - name: Pack ACSync.CLI
+        run: dotnet pack .\ACSync.CLI\ACSync.CLI.csproj -c Release -o .\publish
+
+      - name: Push ACSync.CLI to NuGet.org
+        run: dotnet nuget push .\publish\ACSync.CLI.*.nupkg
+             --api-key ${{ secrets.NUGET_API_KEY }}
+             --source https://api.nuget.org/v3/index.json
+             --skip-duplicate
+
       - name: Push to GitHub Packages
         run: dotnet nuget push .\publish\*.nupkg
              --api-key ${{ secrets.GITHUB_TOKEN }}
