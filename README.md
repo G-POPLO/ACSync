@@ -18,7 +18,7 @@ An extremely simple incremental update/patch system for any binary files.
 
 | Package | Description | Install |
 |---|---|---|
-| **ACSync** | CLI tool | `dotnet tool install --global ACSync` |
+| **ACSync.CLI** | CLI tool | `dotnet tool install --global ACSync` |
 | **ACSync.Core** | Library | `dotnet add package ACSync.Core` |
 
 ## Commands
