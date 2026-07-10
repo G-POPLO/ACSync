@@ -10,7 +10,7 @@ public static class SyncPatch
     /// <summary>
     /// 创建补丁：比对旧清单与新目录，将变更文件 + 清单 + 删除列表打包为 7z。
     /// </summary>
-    public static void CreatePatch(string oldPath, string newPath, string? outputPath = null)
+    public static void CreatePatch(string oldPath, string newPath, string? outputPath = null, string? sevenZipPath = null)
     {
         var oldManifest = ManifestService.LoadFromDirectory(oldPath);
 
@@ -65,7 +65,7 @@ public static class SyncPatch
 
             // 用 7za 打包
             var patchFile = outputPath ?? Path.Combine(Environment.CurrentDirectory, PatchFileName);
-            Run7Zip($"a -t7z -mx=9 -m0=LZMA2 \"{patchFile}\" \"{patchDir}{Path.DirectorySeparatorChar}*\" -r");
+            Run7Zip($"a -t7z -mx=9 -m0=LZMA2 \"{patchFile}\" \"{patchDir}{Path.DirectorySeparatorChar}*\" -r", sevenZipPath);
             Console.WriteLine($"Patch created: {patchFile}");
             Console.WriteLine($"  Changed/New: {changed.Count} files");
             Console.WriteLine($"  To delete:   {deleted.Count} files");
@@ -80,7 +80,7 @@ public static class SyncPatch
     /// <summary>
     /// 应用补丁：解压 7z 到目标目录，覆盖文件、删除过期文件、排除指定类型。
     /// </summary>
-    public static void ApplyPatch(string targetPath, string? patchFile = null, string[]? excludeExtensions = null)
+    public static void ApplyPatch(string targetPath, string? patchFile = null, string[]? excludeExtensions = null, string? sevenZipPath = null)
     {
         var patch = patchFile ?? Path.Combine(Environment.CurrentDirectory, PatchFileName);
         if (!File.Exists(patch))
@@ -98,7 +98,7 @@ public static class SyncPatch
             Directory.CreateDirectory(extractDir);
 
             // 解压补丁
-            Run7Zip($"x \"{patch}\" -o\"{extractDir}\" -y");
+            Run7Zip($"x \"{patch}\" -o\"{extractDir}\" -y", sevenZipPath);
 
             // 应用删除列表
             var deleteListPath = Path.Combine(extractDir, DeleteListFileName);
@@ -181,9 +181,9 @@ public static class SyncPatch
         return set;
     }
 
-    private static void Run7Zip(string arguments)
+    private static void Run7Zip(string arguments, string? sevenZipPath = null)
     {
-        var exePath = Path.Combine(AppContext.BaseDirectory, "7za.exe");
+        var exePath = sevenZipPath ?? Path.Combine(AppContext.BaseDirectory, "7za.exe");
         if (!File.Exists(exePath))
             throw new FileNotFoundException($"7za.exe not found at: {exePath}");
 

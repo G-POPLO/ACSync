@@ -40,8 +40,10 @@ SyncPatch.ApplyPatch(@"D:\app\user", excludeExtensions: new[] { ".json", ".ini" 
 
 | Method | Description |
 |---|---|
-| `CreatePatch(oldPath, newPath, outputPath?)` | Create `acsync_patch.7z` from old→new delta |
-| `ApplyPatch(targetPath, patchFile?, excludeExtensions?)` | Apply patch to target directory |
+| `CreatePatch(oldPath, newPath, outputPath?, sevenZipPath?)` | Create `acsync_patch.7z` from old→new delta |
+| `ApplyPatch(targetPath, patchFile?, excludeExtensions?, sevenZipPath?)` | Apply patch to target directory |
+
+> `sevenZipPath` — Optional. Defaults to `AppContext.BaseDirectory/7za.exe` (application root directory).
 
 ## Dependencies
 
