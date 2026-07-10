@@ -46,4 +46,9 @@
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\ACSync.Npm\lib\" />
     </Target>
 
+       <!-- Copy DLL to ACSync.Python package -->
+    <Target Name="CopyToPythonPackage" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\ACSync.Python\lib\" />
+    </Target>
+
 </Project>
