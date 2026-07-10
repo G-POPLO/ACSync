@@ -362,5 +362,14 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# ACSync 
+# ACSync
 .trae/
+
+# ACSync.Npm - build artifacts
+ACSync.Npm/lib/
+ACSync.Npm/package-lock.json
+
+# ACSync.Python - build artifacts
+ACSync.Python/dist/
+ACSync.Python/*.egg-info/
+ACSync.Python/acsync/lib/

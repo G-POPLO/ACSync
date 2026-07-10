@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "acsync-core"
+version = "1.0.0"
+description = "Incremental binary patch system — SHA256 diff, 7z (LZMA2) patch creation and application"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [
+    { name = "PoploC" },
+]
+keywords = ["acsync", "patch", "incremental", "update", "diff", "7z", "lzma2"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Software Development :: Version Control",
+    "Topic :: System :: Archiving :: Compression",
+]
+dependencies = [
+    "pythonnet>=3.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/G-POPLO/ACSync"
+Repository = "https://github.com/G-POPLO/ACSync"
+
+[tool.setuptools.packages.find]
+include = ["acsync*"]
+
+[tool.setuptools.package-data]
+acsync = ["lib/*"]
