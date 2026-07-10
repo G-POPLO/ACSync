@@ -1,6 +1,6 @@
 # ACSync
 
-[English](README.md)  [简体中文](README-CN.md)
+[English](README.md) | [简体中文](README-CN.md)
 
 An extremely simple incremental update/patch system for any binary files.
 
@@ -14,14 +14,23 @@ An extremely simple incremental update/patch system for any binary files.
 - Auto-delete patch file on successful update
 - AOT compatible, minimal dependencies
 
-## NuGet Packages
+## Packages
 
-| Package | Description | Install |
+| Package | Platform | Install |
 |---|---|---|
 | **ACSync.CLI** | CLI tool | `dotnet tool install --global ACSync` |
-| **ACSync.Core** | Library | `dotnet add package ACSync.Core` |
+| **ACSync.Core** | .NET library | `dotnet add package ACSync.Core` |
+| **acsync-core** | npm | `npm install acsync-core` |
+| **acsync-core** | PyPI | `pip install acsync-core` |
 
-## Commands
+Each package has its own README with detailed API documentation:
+
+- [ACSync.CLI](ACSync.CLI/README.md) — CLI usage
+- [ACSync.Core](ACSync.Core/README.md) — .NET library API
+- [acsync-core (npm)](ACSync.Npm/README.md) — Node.js API
+- [acsync-core (PyPI)](ACSync.Python/README.md) — Python API
+
+## CLI Usage
 
 ```
 acsync <path> -l                  Create manifest
@@ -71,4 +80,13 @@ acsync D:\app\v1.0 D:\app\v2.0 -m
 
 # 4. Apply patch to user directory (exclude config files)
 acsync D:\app\user -u -e .json,.ini,.yaml
+```
+
+## Ecosystem
+
+```mermaid
+graph LR
+    A[ACSync.Core - .NET Library] --> B[ACSync.CLI - CLI Tool]
+    A --> C[acsync-core - npm Package]
+    A --> D[acsync-core - PyPI Package]
 ```

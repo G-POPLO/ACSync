@@ -1,15 +1,34 @@
 # ACSync
 
-特点：
+[English](README.md) | [简体中文](README-CN.md)
 
-- 极其简单的增量更新系统，任何二进制文件都可以使用
-- 补丁为新版本更新的差异文件，压缩至7z格式（LZMA2）
-- 通过 SHA256 哈希判定文件变更，确保准确性
+一个极其简单的增量更新/补丁系统，适用于任何二进制文件。
+
+## 特点
+
+- 基于 SHA256 哈希判定文件变更，确保准确性
 - 多线程扫描目录，加速清单生成
-- 允许打补丁时删除无用的旧文件
-- 允许打补丁时排除文件（例如 json、ini、yaml 等）
+- 补丁为新版本更新的差异文件，压缩为 7z 格式（LZMA2）
+- 打补丁时可自动删除已废弃的旧文件
+- 支持排除指定文件类型（如配置文件）
 - 补丁应用成功自动删除补丁包
 - AOT 兼容，低依赖
+
+## 包
+
+| 包 | 平台 | 安装 |
+|---|---|---|
+| **ACSync.CLI** | 命令行工具 | `dotnet tool install --global ACSync` |
+| **ACSync.Core** | .NET 类库 | `dotnet add package ACSync.Core` |
+| **acsync-core** | npm | `npm install acsync-core` |
+| **acsync-core** | PyPI | `pip install acsync-core` |
+
+各包均有详细的 API 文档：
+
+- [ACSync.CLI](ACSync.CLI/README.md) — 命令行用法
+- [ACSync.Core](ACSync.Core/README.md) — .NET 类库 API
+- [acsync-core (npm)](ACSync.Npm/README.md) — Node.js API
+- [acsync-core (PyPI)](ACSync.Python/README.md) — Python API
 
 ## 命令
 
@@ -66,4 +85,13 @@ acsync D:\app\v1.0 D:\app\v2.0 -m
 
 # 4. 将补丁应用到用户目录（排除配置文件）
 acsync D:\app\user -u -e .json,.ini,.yaml
+```
+
+## 生态系统
+
+```mermaid
+graph LR
+    A[ACSync.Core - .NET 类库] --> B[ACSync.CLI - 命令行工具]
+    A --> C[acsync-core - npm 包]
+    A --> D[acsync-core - PyPI 包]
 ```
