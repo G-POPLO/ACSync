@@ -41,26 +41,29 @@ public static class ManifestService
         var manifest = new SyncManifest();
         var basePath = Path.GetFullPath(directoryPath);
 
-        var files = Directory.GetFiles(basePath, "*", SearchOption.AllDirectories);
+        var files = Directory.GetFiles(basePath, "*", SearchOption.AllDirectories)
+            .Where(f => Path.GetRelativePath(basePath, f) != ManifestFileName)
+            .ToArray();
 
-        foreach (var file in files)
+        var lockObj = new object();
+        Parallel.ForEach(files, file =>
         {
             var relativePath = Path.GetRelativePath(basePath, file);
-
-            // 跳过清单文件自身
-            if (relativePath == ManifestFileName)
-                continue;
-
             var fileInfo = new FileInfo(file);
 
-            manifest.Files.Add(new FileEntry
+            var entry = new FileEntry
             {
                 RelativePath = relativePath.Replace('\\', '/'),
                 LastWriteTimeUtc = fileInfo.LastWriteTimeUtc,
                 Length = fileInfo.Length,
                 Sha256 = ComputeSha256(file)
-            });
-        }
+            };
+
+            lock (lockObj)
+            {
+                manifest.Files.Add(entry);
+            }
+        });
 
         return manifest;
     }

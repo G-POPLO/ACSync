@@ -12,11 +12,20 @@ public static class SyncPatch
     /// </summary>
     public static void CreatePatch(string oldPath, string newPath, string? outputPath = null)
     {
-        // 读取旧清单
         var oldManifest = ManifestService.LoadFromDirectory(oldPath);
 
-        // 扫描新版本目录并生成清单
-        var newManifest = ManifestService.ScanDirectory(newPath);
+        SyncManifest? newManifest;
+        var newManifestPath = Path.Combine(newPath, ManifestService.ManifestFileName);
+        if (File.Exists(newManifestPath))
+        {
+            Console.WriteLine("Loading existing manifest from new version directory.");
+            newManifest = ManifestService.LoadFromFile(newManifestPath);
+        }
+        else
+        {
+            Console.WriteLine("Scanning new version directory...");
+            newManifest = ManifestService.ScanDirectory(newPath);
+        }
 
         // 比对新旧差异
         var (changed, deleted) = ManifestService.Diff(oldManifest, newManifest);
@@ -142,6 +151,13 @@ public static class SyncPatch
             }
 
             Console.WriteLine($"Patch applied successfully to: {targetPath}");
+
+            // 补丁应用成功后自动删除补丁文件
+            if (File.Exists(patch))
+            {
+                File.Delete(patch);
+                Console.WriteLine($"Patch success,clear patch file: {patch}");
+            }
         }
         finally
         {
