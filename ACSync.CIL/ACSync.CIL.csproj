@@ -6,14 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <Title>ACSync Update</Title>
+    <Title>ACSync CLI</Title>
     <Authors>PoploC</Authors>
-    <Description>An extremely simple incremental update/patch system for any binary files. Uses SHA256 for file comparison and 7z (LZMA2) for compression.</Description>
+    <Description>Command-line tool for incremental binary patching. Uses SHA256 for change detection and 7z (LZMA2) for compression.</Description>
     <PackageId>ACSync</PackageId>
     <Version>1.0.0</Version>
-    <PackageTags>acsync;update;patcher;incremental;7z;lzma2;diff</PackageTags>
+    <PackageTags>acsync;update;patcher;incremental;7z;lzma2;diff;cli</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>acsync</ToolCommandName>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
