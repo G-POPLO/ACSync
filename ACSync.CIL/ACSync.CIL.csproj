@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,10 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>ACSync Update</Title>
     <Authors>PoploC</Authors>
-    <Description>ACSync Update</Description>
+    <Description>An extremely simple incremental update/patch system for any binary files. Uses SHA256 for file comparison and 7z (LZMA2) for compression.</Description>
+    <PackageId>ACSync</PackageId>
+    <Version>1.0.0</Version>
+    <PackageTags>acsync;update;patcher;incremental;7z;lzma2;diff</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,6 +30,14 @@
 
   <ItemGroup>
     <PackageReference Include="7-Zip.CommandLine" Version="25.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ACSync.Core\ACSync.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
 
   <Target Name="Copy7Zip" AfterTargets="Build">
