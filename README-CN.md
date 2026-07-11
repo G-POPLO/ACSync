@@ -18,7 +18,7 @@
 
 | 包 | 平台 | 安装 |
 |---|---|---|
-| **ACSync.CLI** | 命令行工具 | `dotnet tool install --global ACSync` |
+| **ACSync.CLI** | 命令行工具 | `dotnet tool install --global ACSync.CLI` |
 | **ACSync.Core** | .NET 类库 | `dotnet add package ACSync.Core` |
 | **acsync-core** | npm | `npm install acsync-core` |
 | **acsync-core** | PyPI | `pip install acsync-core` |
