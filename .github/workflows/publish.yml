@@ -77,11 +77,11 @@ jobs:
           (Get-Content "ACSync.Npm\package.json") -replace '"version":\s*"\d+\.\d+\.\d+"', "`"version`": `"$version`"" | Set-Content "ACSync.Npm\package.json" -NoNewline
           (Get-Content "ACSync.Python\pyproject.toml") -replace '^version\s*=\s*"\d+\.\d+\.\d+"', "version = `"$version`"" | Set-Content "ACSync.Python\pyproject.toml" -NoNewline
 
-      - name: Copy DLL and 7za.exe into npm package
+      - name: Copy DLL into npm package
         shell: pwsh
         run: |
           Copy-Item ".\ACSync.Core\bin\Release\net10.0\ACSync.Core.dll" -Destination ".\ACSync.Npm\lib\" -Force
-          Copy-Item ".\ACSync.Core\bin\Release\net10.0\7za.exe" -Destination ".\ACSync.Npm\lib\" -Force
+         
 
       - uses: actions/setup-node@v4
         with:
@@ -117,11 +117,11 @@ jobs:
           (Get-Content "ACSync.Npm\package.json") -replace '"version":\s*"\d+\.\d+\.\d+"', "`"version`": `"$version`"" | Set-Content "ACSync.Npm\package.json" -NoNewline
           (Get-Content "ACSync.Python\pyproject.toml") -replace '^version\s*=\s*"\d+\.\d+\.\d+"', "version = `"$version`"" | Set-Content "ACSync.Python\pyproject.toml" -NoNewline
 
-      - name: Copy DLL and 7za.exe into python package
+      - name: Copy DLL and into python package
         shell: pwsh
         run: |
           Copy-Item ".\ACSync.Core\bin\Release\net10.0\ACSync.Core.dll" -Destination ".\ACSync.Python\acsync\lib\" -Force
-          Copy-Item ".\ACSync.Core\bin\Release\net10.0\7za.exe" -Destination ".\ACSync.Python\acsync\lib\" -Force
+          
 
       - uses: actions/setup-python@v5
         with:
