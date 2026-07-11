@@ -18,7 +18,7 @@ An extremely simple incremental update/patch system for any binary files.
 
 | Package | Platform | Install |
 |---|---|---|
-| **ACSync.CLI** | CLI tool | `dotnet tool install --global ACSync` |
+| **ACSync.CLI** | CLI tool | `dotnet tool install --global ACSync.CLI` |
 | **ACSync.Core** | .NET library | `dotnet add package ACSync.Core` |
 | **acsync-core** | npm | `npm install acsync-core` |
 | **acsync-core** | PyPI | `pip install acsync-core` |
