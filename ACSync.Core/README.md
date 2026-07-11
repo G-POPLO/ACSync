@@ -1,4 +1,4 @@
-# ACSync.Core
+# ACSync.Core.Core
 
 Incremental update/patch library for binary files.
 
@@ -15,7 +15,7 @@ Incremental update/patch library for binary files.
 ```csharp
 // Scan directory and create manifest
 var manifest = ManifestService.ScanDirectory(@"D:\app\v2.0");
-ManifestService.SaveToFile(manifest, @"D:\app\v2.0\acsync_manifest.json");
+ManifestService.SaveToFile(manifest, @"D:\app\v2.0\ACSync.Core_manifest.json");
 
 // Compare manifests and create patch
 SyncPatch.CreatePatch(@"D:\app\v1.0", @"D:\app\v2.0");
@@ -33,14 +33,14 @@ SyncPatch.ApplyPatch(@"D:\app\user", excludeExtensions: new[] { ".json", ".ini" 
 | `ScanDirectory(path)` | Scan directory, compute SHA256 for all files |
 | `SaveToFile(manifest, path)` | Save manifest as JSON |
 | `LoadFromFile(path)` | Load manifest from JSON |
-| `LoadFromDirectory(path)` | Load manifest from directory (looks for `acsync_manifest.json`) |
+| `LoadFromDirectory(path)` | Load manifest from directory (looks for `ACSync.Core_manifest.json`) |
 | `Diff(old, new)` | Compare two manifests, returns (changed, deleted) |
 
 ### SyncPatch
 
 | Method | Description |
 |---|---|
-| `CreatePatch(oldPath, newPath, outputPath?, sevenZipPath?)` | Create `acsync_patch.7z` from old→new delta |
+| `CreatePatch(oldPath, newPath, outputPath?, sevenZipPath?)` | Create `ACSync.Core_patch.7z` from old→new delta |
 | `ApplyPatch(targetPath, patchFile?, excludeExtensions?, sevenZipPath?)` | Apply patch to target directory |
 
 > `sevenZipPath` — Optional. Defaults to `AppContext.BaseDirectory/7za.exe` (application root directory).

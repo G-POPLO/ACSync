@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace ACSync;
+namespace ACSync.Core;
 
 public sealed class SyncManifest
 {
@@ -31,7 +31,7 @@ internal partial class ManifestJsonContext : JsonSerializerContext
 
 public static class ManifestService
 {
-    public const string ManifestFileName = "acsync_manifest.json";
+    public const string ManifestFileName = "ACSync.Core_manifest.json";
 
     public static SyncManifest ScanDirectory(string directoryPath)
     {

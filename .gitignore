@@ -12,6 +12,7 @@
 *.userosscache
 
 # NuGet
+nuget/
 *.nupkg
 *.snupkg
 **/[Pp]ackages/*

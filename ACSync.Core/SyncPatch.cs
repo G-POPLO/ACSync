@@ -1,11 +1,11 @@
 using System.Diagnostics;
 
-namespace ACSync;
+namespace ACSync.Core;
 
 public static class SyncPatch
 {
-    public const string PatchFileName = "acsync_patch.7z";
-    public const string DeleteListFileName = "acsync_delete.txt";
+    public const string PatchFileName = "ACSync.Core_patch.7z";
+    public const string DeleteListFileName = "ACSync.Core_delete.txt";
 
     /// <summary>
     /// 创建补丁：比对旧清单与新目录，将变更文件 + 清单 + 删除列表打包为 7z。
@@ -36,7 +36,7 @@ public static class SyncPatch
             return;
         }
 
-        var patchDir = Path.Combine(Path.GetTempPath(), $"acsync_patch_{Guid.NewGuid():N}");
+        var patchDir = Path.Combine(Path.GetTempPath(), $"ACSync.Core_patch_{Guid.NewGuid():N}");
         try
         {
             Directory.CreateDirectory(patchDir);
@@ -92,7 +92,7 @@ public static class SyncPatch
         targetPath = Path.GetFullPath(targetPath);
         var excludeSet = NormalizeExcludes(excludeExtensions);
 
-        var extractDir = Path.Combine(Path.GetTempPath(), $"acsync_extract_{Guid.NewGuid():N}");
+        var extractDir = Path.Combine(Path.GetTempPath(), $"ACSync.Core_extract_{Guid.NewGuid():N}");
         try
         {
             Directory.CreateDirectory(extractDir);

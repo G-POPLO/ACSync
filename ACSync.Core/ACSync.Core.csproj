@@ -5,18 +5,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <Title>ACSync.Core</Title>
+    <Title>ACSync.Core.Core</Title>
     <Authors>PoploC</Authors>
     <Description>Library for incremental binary patch creation and application. Uses SHA256 for change detection and 7z (LZMA2) for compression.</Description>
-    <PackageId>ACSync.Core</PackageId>
+    <PackageId>ACSync.Core.Core</PackageId>
     <Version>1.0.1</Version>
-    <PackageTags>acsync;patch;incremental;update;diff;7z;lzma2</PackageTags>
+    <PackageTags>ACSync.Core;patch;incremental;update;diff;7z;lzma2</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <RepositoryUrl>https://github.com/G-POPLO/ACSync</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/G-POPLO/ACSync</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/G-POPLO/ACSync.Core</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/G-POPLO/ACSync.Core</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -41,14 +41,14 @@
         <Copy SourceFiles="$(NuGetPackageRoot)7-zip.commandline/25.1.0/tools/7za.exe" DestinationFolder="$(OutputPath)" />
     </Target>
 
-    <!-- Copy DLL to ACSync.Npm package -->
+    <!-- Copy DLL to ACSync.Core.Npm package -->
     <Target Name="CopyToNpmPackage" AfterTargets="Build">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\ACSync.Npm\lib\" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\ACSync.Core.Npm\lib\" />
     </Target>
 
-       <!-- Copy DLL to ACSync.Python package -->
+       <!-- Copy DLL to ACSync.Core.Python package -->
     <Target Name="CopyToPythonPackage" AfterTargets="Build">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\ACSync.Python\lib\" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\ACSync.Core.Python\lib\" />
     </Target>
 
 </Project>

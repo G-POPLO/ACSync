@@ -1,4 +1,6 @@
-﻿namespace ACSync;
+﻿using ACSync.Core;
+
+namespace ACSync.CLI;
 
 public class CLI
 {
