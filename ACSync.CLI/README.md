@@ -5,7 +5,7 @@ A command-line tool for creating and applying incremental binary patches using 7
 ## Install
 
 ```bash
-dotnet tool install --global ACSync
+dotnet tool install --global ACSync.CLI
 ```
 
 ## Usage

@@ -1,11 +1,16 @@
-name: Publish to NuGet & GitHub Packages
+name: Publish to NuGet, npm & PyPI
 
 on:
   push:
     tags: [ 'v*' ]
 
+permissions:
+  id-token: write   # Required for OIDC (npm + PyPI trusted publishing)
+  contents: read
+
 jobs:
-  publish:
+  publish-nuget:
+    name: Publish NuGet packages
     runs-on: ubuntu-latest
 
     steps:
@@ -15,6 +20,7 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+     
       - name: Restore dependencies
         run: dotnet restore
 
@@ -41,3 +47,93 @@ jobs:
              --api-key ${{ secrets.GITHUB_TOKEN }}
              --source https://nuget.pkg.github.com/${{ github.repository_owner }}/
              --skip-duplicate
+
+  publish-npm:
+    name: Publish npm package
+    runs-on: windows-latest   # node-api-dotnet requires Windows for native .NET hosting
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build ACSync.Core
+        run: dotnet build .\ACSync.Core\ACSync.Core.csproj -c Release
+
+      - name: Sync version from tag
+        shell: pwsh
+        run: |
+          $version = $env:GITHUB_REF_NAME -replace '^v', ''
+          Write-Host "Syncing all packages to version: $version"
+          (Get-Content "ACSync.Npm\package.json") -replace '"version":\s*"\d+\.\d+\.\d+"', "`"version`": `"$version`"" | Set-Content "ACSync.Npm\package.json" -NoNewline
+          (Get-Content "ACSync.Python\pyproject.toml") -replace '^version\s*=\s*"\d+\.\d+\.\d+"', "version = `"$version`"" | Set-Content "ACSync.Python\pyproject.toml" -NoNewline
+
+      - name: Copy DLL and 7za.exe into npm package
+        shell: pwsh
+        run: |
+          Copy-Item ".\ACSync.Core\bin\Release\net10.0\ACSync.Core.dll" -Destination ".\ACSync.Npm\lib\" -Force
+          Copy-Item ".\ACSync.Core\bin\Release\net10.0\7za.exe" -Destination ".\ACSync.Npm\lib\" -Force
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+        working-directory: ACSync.Npm
+
+      - name: Publish to npm (OIDC trusted publishing)
+        working-directory: ACSync.Npm
+        run: npm publish --provenance --access public
+
+  publish-pypi:
+    name: Publish PyPI package
+    runs-on: windows-latest   # pythonnet requires Windows for native .NET hosting
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build ACSync.Core
+        run: dotnet build .\ACSync.Core\ACSync.Core.csproj -c Release
+
+      - name: Sync version from tag (idempotent if publish-npm ran first)
+        shell: pwsh
+        run: |
+          $version = $env:GITHUB_REF_NAME -replace '^v', ''
+          Write-Host "Ensuring version: $version"
+          (Get-Content "ACSync.Npm\package.json") -replace '"version":\s*"\d+\.\d+\.\d+"', "`"version`": `"$version`"" | Set-Content "ACSync.Npm\package.json" -NoNewline
+          (Get-Content "ACSync.Python\pyproject.toml") -replace '^version\s*=\s*"\d+\.\d+\.\d+"', "version = `"$version`"" | Set-Content "ACSync.Python\pyproject.toml" -NoNewline
+
+      - name: Copy DLL and 7za.exe into python package
+        shell: pwsh
+        run: |
+          Copy-Item ".\ACSync.Core\bin\Release\net10.0\ACSync.Core.dll" -Destination ".\ACSync.Python\acsync\lib\" -Force
+          Copy-Item ".\ACSync.Core\bin\Release\net10.0\7za.exe" -Destination ".\ACSync.Python\acsync\lib\" -Force
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build tools
+        run: python -m pip install --upgrade build twine
+
+      - name: Build sdist and wheel
+        run: python -m build
+        working-directory: ACSync.Python
+
+      - name: Publish to PyPI (OIDC trusted publishing)
+        run: twine upload dist/*
+        working-directory: ACSync.Python
+ - name: Sync version from tag
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "Syncing all packages to version: $VERSION"
+          sed -i "s|<Version>.*</Version>|<Version>${VERSION}</Version>|" ACSync.Core/ACSync.Core.csproj
+          sed -i "s|<Version>.*</Version>|<Version>${VERSION}</Version>|" ACSync.CLI/ACSync.CLI.csproj
