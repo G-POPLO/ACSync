@@ -9,7 +9,7 @@
     <Authors>PoploC</Authors>
     <Description>Library for incremental binary patch creation and application. Uses SHA256 for change detection and 7z (LZMA2) for compression.</Description>
     <PackageId>ACSync.Core</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageTags>acsync;patch;incremental;update;diff;7z;lzma2</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
