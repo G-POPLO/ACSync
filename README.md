@@ -4,6 +4,7 @@
 
 An extremely simple incremental update/patch system for any binary files.
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/G-POPLO/ACSync)
 ## Features
 
 - SHA256-based file comparison for reliable change detection
